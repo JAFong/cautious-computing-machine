@@ -47,7 +47,15 @@ const schema = {
       description: "Additional Information",
     },
   },
-  required: ["firstName", "lastName", "email", "countryOfCitizenship", "visa"],
+  required: [
+    "firstName",
+    "lastName",
+    "email",
+    "countryOfCitizenship",
+    "website",
+    "visa",
+    "additionalInformation",
+  ],
 };
 
 export default schema;

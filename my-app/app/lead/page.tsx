@@ -17,26 +17,41 @@ export default function Home() {
   const [fieldErrors, setFieldErrors] = useState(null);
   const [formError, setFormError] = useState("");
   const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
+  const [file, setFile] = useState(null);
 
   const handleSubmit = () => {
     if (fieldErrors && fieldErrors?.length) {
       setFormError("Please fill out the required fields");
+      window.scrollTo(0, 0);
+      return;
+    }
+
+    if (!file) {
+      setFormError("Please upload a resume");
+      window.scrollTo(0, 0);
       return;
     }
 
     setFormError("");
 
+    const formData = new FormData();
+    formData.append("document", file);
+    formData.append("data", JSON.stringify(data));
+
     fetch("/submitLeads", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+
+      body: formData,
     })
       .then((res) => res.json())
       .then(() => {
         setIsSubmitSuccessful(true);
       });
+  };
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
   };
 
   if (isSubmitSuccessful) {
@@ -77,6 +92,18 @@ export default function Home() {
               setFieldErrors(errors);
             }}
           />
+
+          <div className="my-[20px] text-left">
+            <label htmlFor="document">Upload Resume:</label>
+            <input
+              className="cursor-pointer bg-gray-300 p-[10px] rounded-md w-[500px] mt-[10px]"
+              type="file"
+              id="document"
+              name="document"
+              accept=".pdf,.doc,.docx"
+              onChange={handleFileChange}
+            />
+          </div>
         </div>
 
         <button
