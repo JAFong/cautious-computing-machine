@@ -15,6 +15,7 @@ const schema = {
       type: "string",
       minLength: 3,
       description: "Email",
+      format: "email",
     },
     countryOfCitizenship: {
       type: "string",
