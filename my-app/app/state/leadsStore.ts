@@ -1,7 +1,6 @@
-import { update } from "@jsonforms/core";
 import { create } from "zustand";
 
-const useLeadsStore = create((set, get) => ({
+const useLeadsStore = create((set) => ({
   // Normalize data
   leads: {},
 
