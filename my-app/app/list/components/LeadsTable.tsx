@@ -5,7 +5,6 @@ import { AgGridReact } from "ag-grid-react";
 import { AllCommunityModule, ModuleRegistry } from "ag-grid-community";
 import ReachOutButton from "./ReachOutButton";
 import { useLeadsStore } from "@/app/state/leadsStore";
-import useLeadsTable from "../hooks/useLeadsTable";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -13,15 +12,9 @@ const LeadsTable = () => {
   const gridRef = useRef<AgGridReact>(null);
   const [rowData, setRowData] = useState([]);
   const fetchLeads = useLeadsStore((state) => state.fetchLeads);
-  const leads = useLeadsTable();
+  const leads = useLeadsStore((state) => state.leads);
 
   useEffect(() => {
-    // async function fetchLeads() {
-    //   const response = await fetch("/leads");
-    //   const { data } = await response.json();
-
-    //   setRowData(data);
-    // }
     const isAuthenticated =
       sessionStorage.getItem("isAuthenticated") === "true";
 
@@ -30,12 +23,15 @@ const LeadsTable = () => {
     }
 
     fetchLeads();
-  }, []);
+  }, [fetchLeads]);
 
   useEffect(() => {
-    if (leads && leads.length > 0) {
-      console.log(leads);
-      setRowData(leads);
+    if (leads) {
+      const normalizedLeads = Object.keys(leads).map((id) => ({
+        ...leads[id],
+      }));
+
+      setRowData(normalizedLeads);
     }
   }, [leads]);
 
@@ -65,6 +61,11 @@ const LeadsTable = () => {
       { field: "submitted", getQuickFilterText: () => "" },
       { field: "status", getQuickFilterText: () => "" },
       { field: "country", getQuickFilterText: () => "" },
+      {
+        field: "button",
+        headerName: "Button",
+        cellRenderer: ReachOutButton,
+      },
     ];
 
     for (const column of defaultRows) {
@@ -100,7 +101,7 @@ const LeadsTable = () => {
         </select>
       </div>
 
-      <div className="h-[500px] w-[900px]">
+      <div className="h-[500px] w-[1000px]">
         <AgGridReact
           rowData={rowData}
           columnDefs={colDefs}

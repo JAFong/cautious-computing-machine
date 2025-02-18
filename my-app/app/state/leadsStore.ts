@@ -1,19 +1,26 @@
 import { update } from "@jsonforms/core";
 import { create } from "zustand";
 
-const useLeadsStore = create((set) => ({
+const useLeadsStore = create((set, get) => ({
   // Normalize data
   leads: {},
 
-  updateLead: (id, data) =>
-    set((state) => {
-      const lead = state.leads[id];
-      const updatedLead = { ...lead, ...data };
+  reachOutToLead: (id) =>
+    fetch("/reach-lead", {
+      method: "POST",
+      body: JSON.stringify({ id }),
+    }).then(() => {
+      set((state) => {
+        const lead = state.leads[id];
+        const updatedLead = { ...lead, status: "Reached Out" };
 
-      return {
-        ...state,
-        updatedLead,
-      };
+        return {
+          leads: {
+            ...state.leads,
+            [id]: updatedLead,
+          },
+        };
+      });
     }),
   fetchLeads: () =>
     fetch("/leads")
@@ -23,9 +30,7 @@ const useLeadsStore = create((set) => ({
           acc[lead.id] = lead;
           return acc;
         }, {});
-
-        set((state) => ({
-          ...state,
+        set(() => ({
           leads: normalizedLeads,
         }));
       }),
