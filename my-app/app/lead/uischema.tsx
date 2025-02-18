@@ -27,34 +27,26 @@ const uischema = {
       ],
     },
     {
+      type: "VerticalLayout",
+      elements: [
+        {
+          type: "Control",
+          scope: "#/properties/visa",
+        },
+      ],
+    },
+    {
       type: "Label",
-      text: "Additional Information",
+      text: "How Can We Help You?",
     },
     {
       type: "VerticalLayout",
       elements: [
         {
           type: "Control",
-          scope: "#/properties/personalData/properties/height",
-        },
-        {
-          type: "Control",
-          scope: "#/properties/nationality",
-        },
-        {
-          type: "Control",
-          scope: "#/properties/occupation",
+          scope: "#/properties/additionalInformation",
           options: {
-            suggestion: [
-              "Accountant",
-              "Engineer",
-              "Freelancer",
-              "Journalism",
-              "Physician",
-              "Student",
-              "Teacher",
-              "Other",
-            ],
+            multi: true,
           },
         },
       ],

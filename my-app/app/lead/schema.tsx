@@ -26,8 +26,27 @@ const schema = {
       minLength: 3,
       description: "LinkedIn/Personal Website URL",
     },
+    visa: {
+      type: "object",
+      properties: {
+        categoriesOfInterest: {
+          type: "array",
+          uniqueItems: true,
+          items: {
+            type: "string",
+            enum: ["O-1", "EB-1A", "EB-2 NIW", "I don't know"],
+          },
+          minItems: 1,
+        },
+      },
+    },
+    additionalInformation: {
+      type: "string",
+      minLength: 3,
+      description: "Additional Information",
+    },
   },
-  required: ["occupation", "nationality"],
+  required: ["firstName", "lastName", "email", "countryOfCitizenship", "visa"],
 };
 
 export default schema;
