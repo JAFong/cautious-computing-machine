@@ -5,9 +5,11 @@ Take Home
 ## How to run App
 
 Navigate to the `my-app` directory
+
 Run `npm i`
 
 `npm run dev` for the developer build
+
 `npm run prod` for production ready Build
 
 Will host locally at `http://localhost:3000`
@@ -26,7 +28,9 @@ http://localhost:3000/list
 
 **Testing Steps**
 Login with
+
 email: `admin`
+
 password: `password`
 
 Mocked `logout` in bottom left corner
@@ -36,6 +40,7 @@ Table implemented with AG Grid to enable quick sorting, pagination, and filterin
 ### Server Side
 
 API Routes implemented with Next.js
+
 Auth is a naive implementation using sessionStorage
 
 ## Additional Documentation
