@@ -5,6 +5,8 @@
 Opted to use JSON Forms since this was preferred in the exercise prompt and provides validation out of the box.
 More work would be needed to create custom renderers to tune styling. Given the scope of this exercise I decided to focus on functionality of the form.
 
+Form validation happens automatically because of JSON Forms. Additional form level validation is added when clicking the `Submit` button. Form level validation is also added for file uploading since the is outside JSON Forms. Upon clicking `Submit`, the application makes a `POST` request to `submitLeads` with the form data and uploaded file attached.
+
 ## Private Leads List UI
 
 This page uses a naive solution for Auth, storing a value in sessionStorage if the user is "authenticated". Ideally we could store the value in a cookie with a token

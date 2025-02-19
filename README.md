@@ -5,6 +5,7 @@ Take Home
 ## How to run App
 
 Navigate to the `my-app` directory
+Run `npm i`
 
 `npm run dev` for the developer build
 `npm run prod` for production ready Build
